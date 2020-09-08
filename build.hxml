@@ -1,0 +1,5 @@
+-lib tink_core
+-lib utest
+-cp src
+-main test.Test
+-js bin/js/main.js 
