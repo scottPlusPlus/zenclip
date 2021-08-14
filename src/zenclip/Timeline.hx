@@ -6,11 +6,15 @@ class Timeline extends BaseClip {
 
     private var _activeClips:Array<IClip> = [];
     private var _pendingClips:Int = 0;
-    var _clock:GameClock;
+    var _clock:ZenClock;
 
     public function new(clockTick:Signal<Float>, markers:Array<Marker>){
         super();
-        _clock = new GameClock(clockTick);
+        _clock = new ZenClock();
+        var handle = clockTick.handle(_clock.tick);
+        _clock.onKill.handle(function(_){
+            handle.cancel();
+        });
         _activeClips.push(_clock);
         _pendingClips = markers.length;
         for(m in markers){

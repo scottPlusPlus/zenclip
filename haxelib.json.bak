@@ -1,0 +1,12 @@
+{
+	"name": "zenclip",
+	"url" : "https://github.com/scottPlusPlus/zenclip",
+	"license": "MIT",
+	"tags": ["log"],
+	"description": "Interface and Library for handling media that can be played and paused.",
+	"version": "0.0.1",
+	"releasenote": "initial release. will spend some time using it before adding a major version",
+	"contributors": ["scottPlusPlus"],
+	"classPath": "src",
+	"dependencies": {}
+}
