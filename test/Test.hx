@@ -1,6 +1,5 @@
 package test;
 
-import test.zenclip.TimelineTest;
 import haxe.Json;
 import utest.ui.Report;
 import utest.Assert;

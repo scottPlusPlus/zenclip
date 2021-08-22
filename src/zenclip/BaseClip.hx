@@ -61,46 +61,50 @@ class BaseClip implements IClip {
 		return _onKill.asSignal();
 	}
 
-	public function play():Void {
+	public function play():IClip {
 		if (_state != State.Pending) {
-			return;
+			return this;
 		}
-		doPlay();
 		_state = State.Playing;
+		doPlay();
 		_onPlay.trigger(this);
+		return this;
 	}
 
 	private function doPlay():Void {}
 
-	public function pause():Void {
+	public function pause():IClip {
 		if (_state != State.Playing) {
-			return;
+			return this;
 		}
-		doPause();
 		_state = State.Paused;
+		doPause();
 		_onPause.trigger(this);
+		return this;
 	}
 
 	private function doPause():Void {}
 
-	public function resume():Void {
+	public function resume():IClip {
 		if (_state != State.Paused) {
-			return;
+			return this;
 		}
-		doResume();
 		_state = State.Playing;
+		doResume();
 		_onResume.trigger(this);
+		return this;
 	}
 
 	private function doResume():Void {}
 
-	public function kill():Void {
+	public function kill():IClip {
 		if (_state == State.Killed || _state == State.Completed) {
-			return;
+			return this;
 		}
-		doKill();
 		_state = State.Killed;
+		doKill();
 		_onKill.trigger(this);
+		return this;
 	}
 
 	private function doKill():Void {}
@@ -109,8 +113,8 @@ class BaseClip implements IClip {
 		if (_state != State.Playing) {
 			return;
 		}
-		doComplete();
 		_state = State.Completed;
+		doComplete();
 		_onComplete.trigger(this);
 	}
 

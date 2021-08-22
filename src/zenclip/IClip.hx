@@ -3,10 +3,10 @@ package zenclip;
 import tink.CoreApi.Signal;
 
 interface IClip {
-	function play():Void;
-	function pause():Void;
-	function resume():Void;
-	function kill():Void;
+	function play():IClip;
+	function pause():IClip;
+	function resume():IClip;
+	function kill():IClip;
 
     var state(get, null):State;
 
