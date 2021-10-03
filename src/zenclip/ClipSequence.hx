@@ -6,6 +6,18 @@ class ClipSequence extends BaseClip {
     private var _activeClip:IClip;
     private var _index:Int;
 
+    /*
+    * Returns how many clips remain in the Sequence, including the currently active clip
+    */
+    public var length(get,never):Int;
+    public function get_length():Int{
+        var res = 0;
+        if (_activeClip != null){
+            res++;
+        }
+        return res+ _pendingClips.length;
+    }
+
     public function new(?clips:Array<IClip>){
         super();
         if (clips == null){
@@ -57,11 +69,17 @@ class ClipSequence extends BaseClip {
 		_activeClip.resume();
 	}
 
+    private override function doComplete() {
+		_pendingClips.resize(0);
+        _activeClip = null;
+	}
+
 	private override function doKill() {
         for (c in _pendingClips){
             c.kill();
         }
-        _pendingClips = [];
         _activeClip.kill();
+        _pendingClips.resize(0);
+        _activeClip = null;
 	}
 }
