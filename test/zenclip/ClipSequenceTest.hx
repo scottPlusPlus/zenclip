@@ -34,4 +34,20 @@ class ClipSequenceTest extends utest.Test {
 		testClock.tickTo(2.0);
 		Assert.equals(State.Completed, sequence.state);
 	}
+
+	function testAddActionWhileRunning(){
+		var sequence = new ClipSequence();
+		var secondClipRuns = 0;
+		var secondClipFunc = function(){
+			secondClipRuns++;
+			Assert.pass();
+		}
+		var firstClip = new ActionClip(function(){
+			sequence.push(new ActionClip(secondClipFunc));
+		});
+		sequence.push(firstClip);
+		Assert.equals(0, secondClipRuns);
+		sequence.play();
+		Assert.equals(1, secondClipRuns);
+	}
 }

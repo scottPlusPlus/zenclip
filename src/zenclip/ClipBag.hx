@@ -11,6 +11,8 @@ class ClipBag extends BaseClip {
             throw("cannot add clips to a ClipBag that has already completed");
         }
 
+        c.onComplete.nextTime().handle(removeChild);
+        c.onKill.nextTime().handle(removeChild);
         if (_state == State.Playing){
             c.play();
         }
@@ -18,8 +20,6 @@ class ClipBag extends BaseClip {
             c.play();
             c.pause();
         }
-        c.onComplete.nextTime().handle(removeChild);
-        c.onKill.nextTime().handle(removeChild);
         _children.push(c);
     }
 
